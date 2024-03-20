@@ -8,17 +8,14 @@ import {
   Navigate,
 } from 'react-router-dom';
 
-import Payform from './components/paymentForm';
-
+import ApplyDiscount from './applydiscount';
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
-          
-          <Route path="/paymentform" element={<Payform/>}/>
-
+          <Route path="/discount/:clientId" element={<ApplyDiscount />} />
         </Routes>
       </BrowserRouter>
     </div>
