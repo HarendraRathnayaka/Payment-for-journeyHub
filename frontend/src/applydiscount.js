@@ -62,11 +62,10 @@ function ApplyDiscount() {
 
   useEffect(() => {
     getPayHistory();
-  }, []);
+  }, [clientId]); // Include clientId in the dependency array
 
   return (
     <div>
-
       <h2>
         Dear Customer, you have successfully
         qualified for a discount of {discount}% on your next payment

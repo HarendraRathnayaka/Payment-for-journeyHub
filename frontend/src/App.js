@@ -1,11 +1,9 @@
 import './App.css';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
   BrowserRouter,
-  Router,
   Route,
   Routes,
-  Navigate,
 } from 'react-router-dom';
 
 import ApplyDiscount from './applydiscount';
