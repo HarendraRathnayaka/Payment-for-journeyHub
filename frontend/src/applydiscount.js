@@ -7,19 +7,19 @@ function ApplyDiscount() {
   const [payHistory, setPayHistory] = useState({});
   const [discount, setDiscount] = useState(0);
 
-  function getPayHistory() {
+  const getPayHistory = () => {
     axios
       .get(`http://localhost:8050/payment/get/${clientId}`)
       .then((res) => {
         setPayHistory(res.data);
-        calculateDiscount(res.data.totalYet); // Call calculateDiscount function with totalYet value
+        calculateDiscount(res.data.totalYet); 
       })
       .catch((err) => {
         alert(err);
       });
   }
 
-  function calculateDiscount(totalYet) {
+  const calculateDiscount = (totalYet) => {
     let calculatedDiscount = 0;
 
     if (totalYet >= 100000) {
@@ -32,25 +32,22 @@ function ApplyDiscount() {
       calculatedDiscount = 0.025;
     }
 
-    // Limit the maximum discount to 50
     if (calculatedDiscount * 100 > 50) {
-      calculatedDiscount = 0.5; // 50% discount
+      calculatedDiscount = 0.5; 
     }
 
-    setDiscount(calculatedDiscount * 100); // Set the discount percentage
+    setDiscount(calculatedDiscount * 100); 
   }
 
-  function redeemDiscount() {
+  const redeemDiscount = () => {
     alert('Discount will be added');
 
-    // Update discount
     axios
       .put(`http://localhost:8050/payment/update/${clientId}`, {
         totalYet: payHistory.totalYet,
         discount: discount / 100,
       })
       .then(() => {
-        // Close window after 5 seconds
         setTimeout(() => {
           window.close();
         }, 5000);
