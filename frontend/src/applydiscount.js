@@ -9,7 +9,7 @@ function ApplyDiscount() {
 
   const getPayHistory = () => {
     axios
-      .get(`http://localhost:8050/payment/get/${clientId}`)
+      .get(`https://payment-for-journeyhub.onrender.com/payment/get/${clientId}`)
       .then((res) => {
         setPayHistory(res.data);
         calculateDiscount(res.data.totalYet); 
@@ -43,7 +43,7 @@ function ApplyDiscount() {
     alert('Discount will be added');
 
     axios
-      .put(`http://localhost:8050/payment/update/${clientId}`, {
+      .put(`https://payment-for-journeyhub.onrender.com/payment/update/${clientId}`, {
         totalYet: payHistory.totalYet,
         discount: discount / 100,
       })
