@@ -4,20 +4,8 @@ import { useParams } from 'react-router-dom';
 
 function ApplyDiscount() {
   const { clientId } = useParams();
-  const [client, setClient] = useState({});
   const [payHistory, setPayHistory] = useState({});
   const [discount, setDiscount] = useState(0);
-
-  function getClient() {
-    axios
-      .get(`http://localhost:8050/client/${clientId}`)
-      .then((res) => {
-        setClient(res.data);
-      })
-      .catch((err) => {
-        alert(err);
-      });
-  }
 
   function getPayHistory() {
     axios
@@ -73,15 +61,14 @@ function ApplyDiscount() {
   }
 
   useEffect(() => {
-    getClient();
     getPayHistory();
   }, []);
 
   return (
     <div>
-      
+
       <h2>
-        Dear {client.firstName} {client.lastName}, you have successfully
+        Dear Customer, you have successfully
         qualified for a discount of {discount}% on your next payment
       </h2>
       <br />

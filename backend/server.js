@@ -30,7 +30,6 @@ app.use(express.json());
 
 // Routes
 app.use('/payment', require('./routes/tourpayment.js'));
-app.use('/client', require('./routes/client.js'));
 
 const PORT = process.env.PORT || 8050;
 app.listen(PORT, () => {
