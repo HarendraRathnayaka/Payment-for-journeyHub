@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const paySchema = new Schema({
+const paymentSchema = new Schema({
 
     clientId: {
         type: Number,
@@ -20,6 +20,6 @@ const paySchema = new Schema({
      
 })
 
-const pay = mongoose.model("pays", paySchema);
+const payment = mongoose.model("payments", paymentSchema);
 
-module.exports = pay;
+module.exports = payment;

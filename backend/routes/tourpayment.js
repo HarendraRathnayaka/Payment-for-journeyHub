@@ -1,19 +1,18 @@
 const router = require('express').Router();
-let pay = require('../models/payhistory');
+let payment = require('../models/payhistory');
 
-const nodemailer = require('nodemailer');
 
-router.route('/add/:clientId').post((req, res) => {
+router.route('/add').post((req, res) => {
   
   const { clientId, totalYet, discount} = req.body;
 
-  const newPay = new pay({
+  const newPayment = new payment({
     clientId,
     totalYet,
     discount
   });
 
-  newPay
+  newPayment
     .save()
     .then(() => {
       res.json('New payment added'); //give a response from json format
@@ -28,11 +27,11 @@ router.route('/add/:clientId').post((req, res) => {
 router.route('/get/:clientId').get((req, res) => {
   const clientId = req.params.clientId;
 
-  pay
+  payment
     .findOne({ clientId: clientId })
-    .then((pay) => {
-      if (pay) {
-        res.json(pay);
+    .then((payment) => {
+      if (payment) {
+        res.json(payment);
       } else {
         res.status(404).send('Payment history not found');
       }
@@ -48,11 +47,11 @@ router.route('/update/:clientId').put((req, res) => {
   const clientId = req.params.clientId;
   const { totalYet, discount } = req.body;
 
-  pay
+  payment
     .findOneAndUpdate({ clientId: clientId }, { totalYet, discount }, { new: true })
-    .then((updatedPay) => {
-      if (updatedPay) {
-        res.json(updatedPay);
+    .then((updatedPayment) => {
+      if (updatedPayment) {
+        res.json(updatedPayment);
       } else {
         res.status(404).send('Payment history updated');
       }
@@ -63,39 +62,4 @@ router.route('/update/:clientId').put((req, res) => {
     });
 });
 
-
-//subscribe mail send
-const transporter = nodemailer.createTransport({
-    service: 'Gmail',
-
-    auth: {
-      user: 'woodmasters574@gmail.com', 
-      pass: 'lofkfoafptumclqg', 
-    },
-  });
-  
-  router.route('/subscribe').post(async (req, res) => {
-    const { email } = req.body;
-  
-    console.log(`Email received: ${email}`);
-  
-    // Email body
-    const mailOptions = {
-      from: 'journeyhublk@gmail.com', 
-      to: email, 
-      subject: 'Welcome to JourneyHub Newsletter!', 
-      text: 'You have subscribed to our newsletter successfully. Stay tuned, we will give updates frequently.', 
-    };
-  
-    try {
-      // Send email
-      await transporter.sendMail(mailOptions);
-      console.log(`Email sent to ${email}`);
-      res.status(200).send('Email sent successfully');
-    } catch (error) {
-      console.error('Error sending email:', error);
-      res.status(500).send('Error sending email');
-    }
-  });
-
-  module.exports = router;
+module.exports = router;
