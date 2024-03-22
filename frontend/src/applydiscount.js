@@ -61,6 +61,8 @@ function ApplyDiscount() {
     getPayHistory();
   }, [clientId]); // Include clientId in the dependency array
 
+  console.log("hi")
+
   return (
     <div>
       <h2>
